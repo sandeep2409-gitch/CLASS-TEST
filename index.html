@@ -1,150 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Online Test</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #4facfe, #00f2fe);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-    }
-    .container {
-      background: white;
-      margin: 20px;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
-      width: 100%;
-      max-width: 600px;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-    .question {
-      margin: 20px 0;
-    }
-    .options label {
-      display: block;
-      background: #f4f4f4;
-      padding: 10px;
-      margin: 5px 0;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .options label:hover {
-      background: #d9f1ff;
-    }
-    input[type="text"] {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    button {
-      background: #4facfe;
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background: #3a9ef5;
-    }
-    .result {
-      font-size: 18px;
-      margin-top: 20px;
-      padding: 10px;
-      border-radius: 8px;
-      background: #eaf8e6;
-      color: #2b7a0b;
-      display: none;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Test</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(120deg, #f6d365, #fda085);
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    max-width: 600px;
+    background: white;
+    margin: 40px auto;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+  }
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  .question {
+    margin: 20px 0;
+  }
+  .options label {
+    display: block;
+    padding: 8px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .options input {
+    margin-right: 8px;
+  }
+  button {
+    width: 100%;
+    background: #f77f00;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #d66d00;
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>Online Test</h1>
-    <form id="quizForm">
-      <label>Name:</label>
-      <input type="text" id="name" required>
 
-      <label>Roll Number:</label>
-      <input type="text" id="rollNumber" required>
+<div class="container">
+  <h1>Online Test</h1>
+  <label>Name: <input type="text" id="name" required></label>
+  <label>Roll Number: <input type="text" id="rollNumber" required></label>
 
-      <div class="question">
-        <p>1. What is the capital of India?</p>
-        <div class="options">
-          <label><input type="radio" name="q1" value="0"> Mumbai</label>
-          <label><input type="radio" name="q1" value="1"> New Delhi</label>
-          <label><input type="radio" name="q1" value="0"> Kolkata</label>
-          <label><input type="radio" name="q1" value="0"> Chennai</label>
-        </div>
-      </div>
-
-      <div class="question">
-        <p>2. 5 + 3 = ?</p>
-        <div class="options">
-          <label><input type="radio" name="q2" value="0"> 6</label>
-          <label><input type="radio" name="q2" value="1"> 8</label>
-          <label><input type="radio" name="q2" value="0"> 9</label>
-          <label><input type="radio" name="q2" value="0"> 7</label>
-        </div>
-      </div>
-
-      <!-- Add more questions here in same format -->
-
-      <button type="submit">Submit</button>
-    </form>
-
-    <div id="resultBox" class="result"></div>
+  <!-- Question 1 -->
+  <div class="question">
+    <p>1. What is the capital of India?</p>
+    <div class="options">
+      <label><input type="radio" name="q1" value="Delhi"> Delhi</label>
+      <label><input type="radio" name="q1" value="Mumbai"> Mumbai</label>
+      <label><input type="radio" name="q1" value="Kolkata"> Kolkata</label>
+    </div>
   </div>
 
-  <script>
-    const scriptURL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
+  <button onclick="submitTest()">Submit Test</button>
+</div>
 
-    document.getElementById('quizForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbwEKKTVFdYdz68_ybDHhhetQ2zxutBSWX2n9bfLOn6Iwb17zqZor8zFtMtwgVrcDohSwQ/exec"; // Your Google Apps Script Web App URL
 
-      const name = document.getElementById('name').value.trim();
-      const rollNumber = document.getElementById('rollNumber').value.trim();
-      let score = 0;
-      const totalQuestions = document.querySelectorAll('.question').length;
+function submitTest() {
+  const name = document.getElementById("name").value.trim();
+  const rollNumber = document.getElementById("rollNumber").value.trim();
+  const q1 = document.querySelector('input[name="q1"]:checked');
 
-      document.querySelectorAll('.question').forEach(q => {
-        const selected = q.querySelector('input[type="radio"]:checked');
-        if (selected) {
-          score += parseInt(selected.value);
-        }
-      });
+  if (!name || !rollNumber || !q1) {
+    alert("Please fill in all fields and select an answer!");
+    return;
+  }
 
-      // Send data to Google Sheets
-      fetch(scriptURL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, rollNumber, score })
-      })
-      .then(res => res.json())
-      .then(() => {
-        const resultBox = document.getElementById('resultBox');
-        resultBox.style.display = 'block';
-        resultBox.textContent = `Thank you ${name}! Your Score: ${score}/${totalQuestions}`;
-        document.getElementById('quizForm').reset();
-      })
-      .catch(err => alert('Error: ' + err.message));
-    });
-  </script>
+  // Simple scoring
+  let score = 0;
+  if (q1.value === "Delhi") score += 1;
+
+  fetch(scriptURL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, rollNumber, score })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.status === "success") {
+      alert(`Test submitted successfully!\nYour Score: ${score}`);
+    } else {
+      alert("Error submitting test: " + data.message);
+    }
+  })
+  .catch(err => alert("Error: " + err));
+}
+</script>
+
 </body>
 </html>
