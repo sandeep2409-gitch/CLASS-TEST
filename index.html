@@ -5,181 +5,146 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Online Test</title>
   <style>
-    /* ===== Google Font ===== */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
-    * {
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #4facfe, #00f2fe);
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       min-height: 100vh;
-      padding: 20px;
     }
     .container {
       background: white;
-      width: 100%;
-      max-width: 800px;
-      border-radius: 15px;
+      margin: 20px;
       padding: 30px;
-      box-shadow: 0px 8px 25px rgba(0,0,0,0.2);
-      animation: fadeIn 0.6s ease-in-out;
+      border-radius: 15px;
+      box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 600px;
     }
-    header {
+    h1 {
       text-align: center;
-      margin-bottom: 25px;
-    }
-    header h1 {
-      font-size: 2em;
-      font-weight: 600;
       color: #333;
     }
-    header p {
-      color: #666;
-    }
-    label {
-      font-weight: 600;
-      display: block;
-      margin: 15px 0 5px;
-    }
-    input[type="text"], input[type="number"] {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      outline: none;
-      font-size: 1em;
-      transition: 0.3s;
-    }
-    input:focus {
-      border-color: #4facfe;
-      box-shadow: 0 0 8px rgba(79, 172, 254, 0.4);
-    }
     .question {
-      margin-top: 20px;
-      background: #f8faff;
-      padding: 15px;
-      border-radius: 10px;
-      border-left: 5px solid #4facfe;
-      transition: 0.3s;
+      margin: 20px 0;
     }
-    .question:hover {
-      background: #eef6ff;
+    .options label {
+      display: block;
+      background: #f4f4f4;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
     }
-    .question p {
-      font-weight: 500;
-      margin-bottom: 8px;
+    .options label:hover {
+      background: #d9f1ff;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
     }
     button {
-      width: 100%;
-      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      background: #4facfe;
       color: white;
-      padding: 14px;
+      padding: 12px 20px;
       border: none;
       border-radius: 8px;
-      font-size: 1.1em;
-      font-weight: 600;
-      margin-top: 25px;
       cursor: pointer;
-      transition: transform 0.2s ease-in-out;
+      font-size: 16px;
+      transition: background 0.3s;
     }
     button:hover {
-      transform: scale(1.02);
-      background: linear-gradient(90deg, #00f2fe, #4facfe);
+      background: #3a9ef5;
     }
     .result {
-      display: none;
+      font-size: 18px;
       margin-top: 20px;
-      padding: 15px;
-      background: #e8f5e9;
-      border: 1px solid #4caf50;
-      color: #2e7d32;
+      padding: 10px;
       border-radius: 8px;
-      font-weight: bold;
-      text-align: center;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
+      background: #eaf8e6;
+      color: #2b7a0b;
+      display: none;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Online Test</h1>
+    <form id="quizForm">
+      <label>Name:</label>
+      <input type="text" id="name" required>
 
-<div class="container">
-  <header>
-    <h1>📚 Online Test</h1>
-    <p>Answer the questions carefully and click Submit</p>
-  </header>
+      <label>Roll Number:</label>
+      <input type="text" id="rollNumber" required>
 
-  <form id="testForm">
-    <label for="name">Full Name</label>
-    <input type="text" id="name" placeholder="Enter your full name" required>
+      <div class="question">
+        <p>1. What is the capital of India?</p>
+        <div class="options">
+          <label><input type="radio" name="q1" value="0"> Mumbai</label>
+          <label><input type="radio" name="q1" value="1"> New Delhi</label>
+          <label><input type="radio" name="q1" value="0"> Kolkata</label>
+          <label><input type="radio" name="q1" value="0"> Chennai</label>
+        </div>
+      </div>
 
-    <label for="rollNumber">Roll Number</label>
-    <input type="text" id="rollNumber" placeholder="Enter your roll number" required>
+      <div class="question">
+        <p>2. 5 + 3 = ?</p>
+        <div class="options">
+          <label><input type="radio" name="q2" value="0"> 6</label>
+          <label><input type="radio" name="q2" value="1"> 8</label>
+          <label><input type="radio" name="q2" value="0"> 9</label>
+          <label><input type="radio" name="q2" value="0"> 7</label>
+        </div>
+      </div>
 
-    <div class="question">
-      <p>1. What is 5 + 3?</p>
-      <input type="number" name="q1" placeholder="Your answer" required>
-    </div>
+      <!-- Add more questions here in same format -->
 
-    <div class="question">
-      <p>2. What is the capital of India?</p>
-      <input type="text" name="q2" placeholder="Your answer" required>
-    </div>
+      <button type="submit">Submit</button>
+    </form>
 
-    <!-- Add more questions here in same style -->
+    <div id="resultBox" class="result"></div>
+  </div>
 
-    <button type="submit">Submit Test</button>
-  </form>
+  <script>
+    const scriptURL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
 
-  <div class="result" id="resultBox"></div>
-</div>
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+      e.preventDefault();
 
-<script>
-const scriptURL = "https://script.google.com/macros/s/AKfycbwU9EQdAJMAawYA6sT0egXJ60mk43cTaCC2iRisSnLJiCRXcoQYISqmtmnAijQsIgUeUQ/exec";
+      const name = document.getElementById('name').value.trim();
+      const rollNumber = document.getElementById('rollNumber').value.trim();
+      let score = 0;
+      const totalQuestions = document.querySelectorAll('.question').length;
 
-document.getElementById('testForm').addEventListener('submit', function(e) {
-  e.preventDefault();
+      document.querySelectorAll('.question').forEach(q => {
+        const selected = q.querySelector('input[type="radio"]:checked');
+        if (selected) {
+          score += parseInt(selected.value);
+        }
+      });
 
-  let name = document.getElementById('name').value.trim();
-  let rollNumber = document.getElementById('rollNumber').value.trim();
-
-  let score = 0;
-  const answers = {
-    q1: "8",
-    q2: "Delhi"
-    // Add correct answers for all other questions
-  };
-
-  const formData = new FormData(this);
-  for (let [key, value] of formData.entries()) {
-    if (answers[key] && value.toString().trim().toLowerCase() === answers[key].toLowerCase()) {
-      score++;
-    }
-  }
-
-  fetch(scriptURL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, rollNumber, score })
-  })
-  .then(res => res.json())
-  .then(() => {
-    document.getElementById('resultBox').style.display = 'block';
-    document.getElementById('resultBox').textContent = `✅ Thank you ${name}! Your score is ${score} / ${Object.keys(answers).length}`;
-    document.getElementById('testForm').reset();
-  })
-  .catch(err => console.error('Error:', err));
-});
-</script>
-
+      // Send data to Google Sheets
+      fetch(scriptURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, rollNumber, score })
+      })
+      .then(res => res.json())
+      .then(() => {
+        const resultBox = document.getElementById('resultBox');
+        resultBox.style.display = 'block';
+        resultBox.textContent = `Thank you ${name}! Your Score: ${score}/${totalQuestions}`;
+        document.getElementById('quizForm').reset();
+      })
+      .catch(err => alert('Error: ' + err.message));
+    });
+  </script>
 </body>
 </html>
