@@ -73,36 +73,31 @@
 </div>
 
 <script>
-const scriptURL = "https://script.google.com/macros/s/AKfycbwEKKTVFdYdz68_ybDHhhetQ2zxutBSWX2n9bfLOn6Iwb17zqZor8zFtMtwgVrcDohSwQ/exec"; // Your Google Apps Script Web App URL
+function submitForm() {
+    const name = document.getElementById("name").value;
+    const rollNumber = document.getElementById("roll").value;
+    const score = document.getElementById("score").value;
 
-function submitTest() {
-  const name = document.getElementById("name").value.trim();
-  const rollNumber = document.getElementById("rollNumber").value.trim();
-  const q1 = document.querySelector('input[name="q1"]:checked');
-
-  if (!name || !rollNumber || !q1) {
-    alert("Please fill in all fields and select an answer!");
-    return;
-  }
-
-  // Simple scoring
-  let score = 0;
-  if (q1.value === "Delhi") score += 1;
-
-  fetch(scriptURL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name, rollNumber, score })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.status === "success") {
-      alert(`Test submitted successfully!\nYour Score: ${score}`);
-    } else {
-      alert("Error submitting test: " + data.message);
-    }
-  })
-  .catch(err => alert("Error: " + err));
+    fetch("https://script.google.com/macros/s/AKfycbwEKKTVFdYdz68_ybDHhhetQ2zxutBSWX2n9bfLOn6Iwb17zqZor8zFtMtwgVrcDohSwQ/exec", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, rollNumber, score })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            alert("Result saved successfully!");
+        } else {
+            alert("Error: " + data.message);
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Failed to connect to server");
+    });
 }
 </script>
 
