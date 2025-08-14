@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Online Test</title>
+  <style>
+    :root { 
+      --primary:#0b5fff;
+       --danger:#d62828; 
+       --ok:#22a06b;
+       }
+    * {
+       box-sizing: border-box; 
+      }
+    body { 
+      font-family: Arial, Helvetica, sans-serif;
+       margin: 0; 
+       background:#f6f7fb; 
+       color:#222; 
+      }
+    header { 
+      padding: 16px; 
+      background:#fff; 
+      border-bottom:1px solid #e8e8ef; 
+      position: sticky;
+       top:0;
+        z-index: 10;
+       }
+    .wrap {
+       max-width: 900px; 
+       margin: 0 auto;
+        padding: 16px;
+       }
+    h1 {
+       margin: 0; 
+       font-size: clamp(20px, 3.5vw, 28px);
+       }
+    #meta { 
+      display:flex; 
+      gap:12px;
+       flex-wrap:wrap; 
+       align-items:center;
+        margin-top:8px; 
+      }
+    .badge { 
+      padding:6px 10px;
+       background:#eef3ff; 
+       color:#0b2a6f; 
+       border-radius:999px; 
+       font-size:14px;
+       }
+    #timer {
+       font-weight:700; 
+       color: var(--danger);
+      }
+
+    .card { 
+      background:#fff; 
+      border:1px solid #e8e8ef;
+       border-radius:12px; 
+       padding:16px;
+        margin:16px 0; 
+        box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+       }
+    .grid { 
+      display:grid; 
+      gap:12px; 
+    }
+    .grid-2 { 
+      grid-template-columns: 1fr 1fr;
+     }
+    @media (max-width:640px){ 
+      .grid-2{ grid-template-columns: 1fr; } 
+    }
+
+    .question {
+       padding: 12px;
+        border:1px solid #ececf5; 
+        border-radius:10px;
+       }
+    .q-text { 
+      font-weight:600; 
+      margin:0 0 8px; 
+    }
+    label.opt { 
+      display:block;
+       padding:8px 10px; 
+       border-radius:8px;
+        border:1px solid #ececf5;
+         cursor:pointer; 
+         margin:6px 0;
+         }
+    label.opt input { 
+      margin-right:8px; 
+    }
+
+    .actions { 
+      display:flex; 
+      gap:12px; 
+      justify-content:center; 
+      margin: 20px 0; 
+    }
+    button { 
+      appearance:none; 
+      border:none; 
+      padding:12px 18px; 
+      border-radius:10px; 
+      font-weight:700; 
+      cursor:pointer; 
+    }
+    .primary { 
+      background: var(--primary); 
+      color:#fff; 
+    }
+    .primary:disabled { 
+      opacity:.6; 
+      cursor:not-allowed; 
+    }
+    .ghost { 
+      background:#fff; 
+      color:#333; 
+      border:1px solid #e8e8ef; 
+    }
+
+    .warning { 
+      color: var(--danger); 
+      font-weight:700; 
+      text-align:center; 
+    }
+    .muted { 
+      color:#666; 
+      font-size:14px; 
+    }
+    .footer { 
+      text-align:center; 
+      padding:24px; 
+      color:#777; 
+      font-size:12px; 
+    }
+    .ok { 
+      color: var(--ok); 
+    }
+
+    input[type="text"] { 
+      width:100%; 
+      padding:12px 14px; 
+      border-radius:10px; 
+      border:1px solid #e1e1ea; 
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Practice test</h1>
+      <div id="meta">
+        <span class="badge">Time remaining: <span id="timer">10:00</span></span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div id="guard" class="card" role="status" aria-live="polite" style="display:none"></div>
+
+    <form id="testForm" class="card" autocomplete="off" novalidate>
+      <div class="grid grid-2">
+        <div>
+          <label for="username" class="muted">Student Name</label>
+          <input id="username" type="text" placeholder="Enter your full name" required />
+        </div>
+        <div>
+          <label for="rollno" class="muted">Roll Number</label>
+          <input id="rollno" type="text" placeholder="e.g., 22A95A1234" required />
+        </div>
+      </div>
+
+      <p class="muted">Answer all questions. Switching tabs/minimizing will immediately end the test.</p>
+
+      <section id="questions" class="grid">
+  
+        <div class="question">
+          <p class="q-text">1) What is the capital of India?</p>
+          <label class="opt"><input type="radio" name="q1" value="Delhi"/>Delhi</label>
+          <label class="opt"><input type="radio" name="q1" value="Mumbai"/>Mumbai</label>
+          <label class="opt"><input type="radio" name="q1" value="Chennai"/>Chennai</label>
+          <label class="opt"><input type="radio" name="q1" value="Kolkata"/>Kolkata</label>
+        </div>
+        <div class="question">
+          <p class="q-text">2) Which planet is known as the Red Planet?</p>
+          <label class="opt"><input type="radio" name="q2" value="Mars"/>Mars</label>
+          <label class="opt"><input type="radio" name="q2" value="Earth"/>Earth</label>
+          <label class="opt"><input type="radio" name="q2" value="Jupiter"/>Jupiter</label>
+          <label class="opt"><input type="radio" name="q2" value="Saturn"/>Saturn</label>
+        </div>
+        <div class="question">
+          <p class="q-text">3) 5 + 3 × 2 = ?</p>
+          <label class="opt"><input type="radio" name="q3" value="11"/>11</label>
+          <label class="opt"><input type="radio" name="q3" value="16"/>16</label>
+          <label class="opt"><input type="radio" name="q3" value="13"/>13</label>
+          <label class="opt"><input type="radio" name="q3" value="10"/>10</label>
+        </div>
+        <div class="question">
+          <p class="q-text">4) Who wrote the National Anthem of India?</p>
+          <label class="opt"><input type="radio" name="q4" value="Rabindranath Tagore"/>Rabindranath Tagore</label>
+          <label class="opt"><input type="radio" name="q4" value="Bankim Chandra Chatterjee"/>Bankim Chandra Chatterjee</label>
+          <label class="opt"><input type="radio" name="q4" value="Mahatma Gandhi"/>Mahatma Gandhi</label>
+          <label class="opt"><input type="radio" name="q4" value="Subhas Chandra Bose"/>Subhas Chandra Bose</label>
+        </div>
+        <div class="question">
+          <p class="q-text">5) Which gas is essential for human respiration?</p>
+          <label class="opt"><input type="radio" name="q5" value="Oxygen"/>Oxygen</label>
+          <label class="opt"><input type="radio" name="q5" value="Carbon Dioxide"/>Carbon Dioxide</label>
+          <label class="opt"><input type="radio" name="q5" value="Nitrogen"/>Nitrogen</label>
+          <label class="opt"><input type="radio" name="q5" value="Helium"/>Helium</label>
+        </div>
+        <div class="question">
+          <p class="q-text">6) Which is the largest ocean on Earth?</p>
+          <label class="opt"><input type="radio" name="q6" value="Pacific Ocean"/>Pacific Ocean</label>
+          <label class="opt"><input type="radio" name="q6" value="Indian Ocean"/>Indian Ocean</label>
+          <label class="opt"><input type="radio" name="q6" value="Atlantic Ocean"/>Atlantic Ocean</label>
+          <label class="opt"><input type="radio" name="q6" value="Arctic Ocean"/>Arctic Ocean</label>
+        </div>
+        <div class="question">
+          <p class="q-text">7) Who is known as the Father of Computers?</p>
+          <label class="opt"><input type="radio" name="q7" value="Charles Babbage"/>Charles Babbage</label>
+          <label class="opt"><input type="radio" name="q7" value="Alan Turing"/>Alan Turing</label>
+          <label class="opt"><input type="radio" name="q7" value="Tim Berners-Lee"/>Tim Berners-Lee</label>
+          <label class="opt"><input type="radio" name="q7" value="Bill Gates"/>Bill Gates</label>
+        </div>
+        <div class="question">
+          <p class="q-text">8) Which metal is commonly used for electrical wiring?</p>
+          <label class="opt"><input type="radio" name="q8" value="Copper"/>Copper</label>
+          <label class="opt"><input type="radio" name="q8" value="Aluminium"/>Aluminium</label>
+          <label class="opt"><input type="radio" name="q8" value="Gold"/>Gold</label>
+          <label class="opt"><input type="radio" name="q8" value="Iron"/>Iron</label>
+        </div>
+        <div class="question">
+          <p class="q-text">9) Which organ primarily filters blood to form urine?</p>
+          <label class="opt"><input type="radio" name="q9" value="Kidneys"/>Kidneys</label>
+          <label class="opt"><input type="radio" name="q9" value="Liver"/>Liver</label>
+          <label class="opt"><input type="radio" name="q9" value="Heart"/>Heart</label>
+          <label class="opt"><input type="radio" name="q9" value="Lungs"/>Lungs</label>
+        </div>
+        <div class="question">
+          <p class="q-text">10) Who is credited with inventing the practical electric light bulb?</p>
+          <label class="opt"><input type="radio" name="q10" value="Thomas Edison"/>Thomas Edison</label>
+          <label class="opt"><input type="radio" name="q10" value="Nikola Tesla"/>Nikola Tesla</label>
+          <label class="opt"><input type="radio" name="q10" value="Alexander Graham Bell"/>Alexander Graham Bell</label>
+          <label class="opt"><input type="radio" name="q10" value="Michael Faraday"/>Michael Faraday</label>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button id="submitBtn" class="primary" type="submit">Submit Test</button>
+        <button id="resetBtn" class="ghost" type="button">Reset</button>
+      </div>
+      <p class="warning" id="warn"></p>
+      <p class="muted">Note: Right‑click, text selection, and tab switching are disabled during the test.</p>
+    </form>
+
+    <div id="resultCard" class="card" style="display:none"></div>
+  </main>
+
+  <footer class="footer">© <span id="yr"></span> EAPCET Practice — Sample Implementation</footer>
+
+  <script>
+  
+    const DURATION_SECONDS = 10 * 60; 
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwU9EQdAJMAawYA6sT0egXJ60mk43cTaCC2iRisSnLJiCRXcoQYISqmtmnAijQsIgUeUQ/exec";
+
+   
+    const ANSWERS = {
+      q1: "Delhi",
+      q2: "Mars",
+      q3: "11",
+      q4: "Rabindranath Tagore",
+      q5: "Oxygen",
+      q6: "Pacific Ocean",
+      q7: "Charles Babbage",
+      q8: "Copper",
+      q9: "Kidneys",
+      q10: "Thomas Edison"
+    };
+
+    const $ = (sel) => document.querySelector(sel);
+    const guard = $('#guard');
+    const warnEl = $('#warn');
+    const form = $('#testForm');
+    const submitBtn = $('#submitBtn');
+    const resetBtn = $('#resetBtn');
+    const resultCard = $('#resultCard');
+
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+    document.addEventListener('selectstart', (e) => e.preventDefault());
+
+    let remaining = DURATION_SECONDS;
+    let tickHandle = null;
+    const timerEl = document.getElementById('timer');
+
+    function startTimer(){
+      updateTimerText();
+      tickHandle = setInterval(() => {
+        remaining--;
+        updateTimerText();
+        if (remaining <= 0) {
+          clearInterval(tickHandle);
+          autoSubmit("Time's up! Test submitted automatically.");
+        }
+      }, 1000);
+    }
+
+    function updateTimerText(){
+      const m = Math.floor(remaining / 60);
+      const s = remaining % 60;
+      timerEl.textContent = `${m}:${String(s).padStart(2,'0')}`;
+    }
+
+    let endedByCheat = false;
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && !endedByCheat && !form.classList.contains('submitted')) {
+        endedByCheat = true;
+        autoSubmit('Test ended due to tab switch/minimize.');
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      await finalizeAndSend();
+    });
+
+    resetBtn.addEventListener('click', () => {
+      if (confirm('Clear all answers and restart timer?')) {
+        window.location.reload();
+      }
+    });
+
+    async function finalizeAndSend(){
+      if (form.classList.contains('submitted')) return; 
+
+      const name = $('#username').value.trim();
+      const roll = $('#rollno').value.trim();
+      if (!name || !roll) {
+        warnEl.textContent = 'Please enter both Name and Roll Number.';
+        return;
+      } else { warnEl.textContent = ''; }
+
+      const data = new FormData(form);
+      let score = 0, total = Object.keys(ANSWERS).length;
+      for (const q in ANSWERS) {
+        if (data.get(q) === ANSWERS[q]) score++;
+      }
+
+      form.classList.add('submitted');
+      submitBtn.disabled = true;
+      clearInterval(tickHandle);
+      try {
+        await fetch(scriptURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, rollNumber: roll, score })
+        });
+        showResult(name, roll, score, total);
+      } catch (err) {
+        showResult(name, roll, score, total, true);
+      }
+    }
+
+    function autoSubmit(msg){
+      guard.style.display = 'block';
+      guard.textContent = msg;
+      finalizeAndSend();
+    }
+
+    function showResult(name, roll, score, total, failed){
+      form.style.display = 'none';
+      resultCard.style.display = 'block';
+      resultCard.innerHTML = `
+        <h2>${failed ? 'Submitted (with network issue)' : 'Test Submitted'}</h2>
+        <p class="ok">Thank you, <b>${escapeHtml(name)}</b> (Roll: <b>${escapeHtml(roll)}</b>).</p>
+        <p>Your overall score is <b>${score}</b> out of <b>${total}</b>.</p>
+        <p class="muted">${failed ? 'We could not reach the sheet right now. Please retry later or contact the invigilator.' : 'Your result has been recorded.'}</p>
+        <div class="actions">
+          <button class="ghost" onclick="window.location.reload()">Go Back</button>
+        </div>
+      `;
+    }
+
+    function escapeHtml(str){
+      return str.replace(/[&<>"']/g, (c)=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;' }[c]));
+    }
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    startTimer();
+  </script>
+</body>
+</html>
